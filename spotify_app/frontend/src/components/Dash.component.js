@@ -36,7 +36,10 @@ export default function Dash({ code }) {
     const[listOfSongs, setListOfSongs]=useState([]);
     const[listofHist, setListofHist]=useState([]);
    const accessToken = useAuth(code);
-  
+   const[profURL, setProfURL]=useState("");
+   
+
+
    useEffect(() => {
     if (!accessToken) return
     spotifyApi.setAccessToken(accessToken)
@@ -61,7 +64,7 @@ export default function Dash({ code }) {
         console.log('Some information about the authenticated user', data.body);
         var username = data.body.display_name;
         setName(data.body.display_name);
-        
+        setProfURL(data.body.images[0].url);
         console.log(username);
         axios.post('http://localhost:5000/user/add', {username})
         .then(res => console.log(res.data))
@@ -301,8 +304,20 @@ const remhistory=()=>{
 
 return (
     <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
-    
-        <h3>Logged In As: {name}</h3>
+    <div class="row">
+    <div class="col">
+    <h3 className="LoginFormTwo text-muted">
+        <img src={profURL} className= "userImage"  style={{ height: "90px", width: "90px" }} />
+            
+    </h3>
+    </div>
+    <div class="col">
+    <h3 className="LoginFormTwo text-muted">
+            
+            <div className= "userName">{name}</div></h3>
+    </div>
+  </div>
+       
     <input
         type="text"
         id="message"
@@ -312,7 +327,7 @@ return (
       />
       
 
-    <Button className="btn btn-success" onClick={newSession}>Start Sesstion</Button>
+    <Button className="btn btn-success mb-1" onClick={newSession}>Start Sesstion</Button>
     <Button className="btn btn-success" onClick={stopSession}>Stop Sesstion</Button>
     {/* <div className="row">
     <div className="col">
@@ -322,9 +337,9 @@ return (
       One of three columns
     </div>
   </div> */}
-  
+  <div className="text-light">Current Session:</div>
     <div className="col-sm flex-grow-1 my-2 b-5" style={{ overflowY: "auto" }}>
-        Current Session:
+        
         {
         listOfSongs.map(track => (
           <SessionResult
@@ -334,9 +349,9 @@ return (
           />
         ))}
         </div>
-       
-      <div className="col-sm flex-grow-1 my-2" style={{ overflowY: "auto" }}>
-        Previous Sessions:
+       <div className="text-light">Previous Sessions:</div>
+      <div className="col-sm flex-grow-1 my-2 text-muted" style={{ overflowY: "auto" }}>
+        
         {listofHist.map(track => (
           <HistoryResults
             track={track}
