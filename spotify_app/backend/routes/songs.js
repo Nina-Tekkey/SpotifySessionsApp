@@ -3,6 +3,8 @@ let Song = require('../models/song.model');
 const cron = require('node-cron');
 
 
+
+
 router.route('/get').get((req, res) => {
   Song.find()
     .then(songs => res.json(songs))
@@ -102,6 +104,17 @@ router.route('/updateArtist').post((req, res) => {
     
   });
   
+
+
+  router.route('/history').post((req, res) => {
+
+  
+    Song.find({username : req.body.username})
+    .then(songs => res.json(songs))
+    .catch(err => res.status(400).json('Error: ' + err));
+  
+    
+  });
 
 
 module.exports = router;
