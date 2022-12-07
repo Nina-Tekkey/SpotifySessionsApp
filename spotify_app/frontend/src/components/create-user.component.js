@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import App from '../App' 
 import axios from 'axios';
 
 export default class CreateUser extends Component {
@@ -21,40 +22,22 @@ export default class CreateUser extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-
-    const user = {
-      username: this.state.username
-    }
-
-    console.log(user);
-   
-    axios.post('http://localhost:5000/user/add', user)
-      .then(res => console.log(res.data));
-    
+    window.location = "/"
     this.setState({
       username: ''
+
     })
   }
 
   render() {
     return (
       <div>
-        <h3>You are Now Logged In</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group"> 
-            <label>Username: </label>
-            <input  type="text"
-                required
-                className="form-control"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-                />
-          </div>
-          <div className="form-group">
-            <input type="submit" value="User Name" className="btn btn-primary" />
-          </div>
-        </form>
-      </div>
+      <form onSubmit={this.onSubmit}>
+        <div className="form-group">
+          <input type="submit" value="Log Out" className="btn btn-primary" />
+        </div>
+      </form>
+    </div>
     )
   }
 }

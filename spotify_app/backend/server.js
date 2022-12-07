@@ -3,6 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 var SpotifyWebApi = require('spotify-web-api-node');
 const bodyParser= require("body-parser");
+//const cron = require('node-cron');
+let Song = require('./models/song.model');
 
 require('dotenv').config();
 const app= express();
@@ -30,10 +32,10 @@ db.once("open", function () {
 });
 
 const usersRouter = require('./routes/users');
-// const songsRouter = require('./routes/songs');
+const songsRouter = require('./routes/songs');
 
 app.use('/user', usersRouter);
-// app.use('/songs', songsRouter);
+app.use('/songs', songsRouter);
 
 app.post('/login', (req, res)=>{
   const code = req.body.code
@@ -62,6 +64,19 @@ app.post('/login', (req, res)=>{
 console.log("me");
 
 })
+
+// app.post('/sessionlog', (req, res)=>{
+//   console.log("jub");
+//   // cron.schedule('*/10 * * * * *', function() {
+//   //   console.log('running a task every minute');
+//   // });
+//   // console.log("jub");
+//   Song.findById(req.body.id)
+//   .then(() => res.json(req.body.id.toString()))
+//     .catch(err => res.status(400).json('Error: ' + err));
+// });
+
+
 
 
 

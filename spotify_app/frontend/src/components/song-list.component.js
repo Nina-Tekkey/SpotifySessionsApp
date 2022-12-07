@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import App from '../App' 
+import { Container, Form } from "react-bootstrap"
+
+
+import axios from 'axios';
 
 export default class SongList extends Component {
 
@@ -7,72 +12,29 @@ export default class SongList extends Component {
 constructor(props) {
         super(props);
 
-        this.onChangeUsername=this.onChangeUsername.bind(this);
-        this.onChangeSongTitle=this.onChangeSongTitle.bind(this);
-        this.onChangeSongArtists=this.onChangeSongArtists.bind(this);
-        this.onChangeDuration=this.onChangeDuration.bind(this);
-        this.onChangeTime=this.onChangeTime.bind(this);
+
+        this.onChangeSessionName=this.onChangeSessionName.bind(this);
 
 
         this.state = {
-            username: "",
-            songTitle: "",
-            songArtist: "",
-            duration: 0,
-            time: new Date(),
-            users: []
+            sessionName: "",
+           
         }
 
     }
 
-    componentDidMount(){
-        this.setState({
-            users:['test user'],
-            username: 'test user'
-        })
-    }
+ 
 
-    onChangeUsername(e){
-        this.setState({
-            username : e.target.value
-        });
-    }
+    
+    onChangeSessionName(e){
+      this.setState({
+          sessionName : e.target.value
+      });
+  }
 
-    onChangeSongTitle(e){
-        this.setState({
-            songTitle : e.target.value
-        });
-    }
+    
 
-    onChangeSongArtists(e){
-        this.setState({
-            songArtist : e.target.value
-        });
-    }
-    onChangeDuration(e){
-        this.setState({
-            duration : e.target.value
-        });
-    }
-    onChangeTime(date){
-        this.setState({
-            time : date
-        });
-    }
-
-    onSubmist(e){
-        e.preventDefault();
-        const song={
-            username : this.state.username,
-      songTitle : this.state.songTitle,
-      songArtist : this.state.songArtist,
-      duration : this.state.duration,
-      time : this.state.time
-        }
-
-        console.log(song);
-        window.location='/';
-    }
+   
 
 
 
@@ -84,6 +46,21 @@ constructor(props) {
 
 
 
+
+
+   onSubmit(e) {
+    
+    console.log(this.sessionName);
+      }
+
+
+
+
+
+
+       handleChange(e) {
+        this.sessionName = e.target.value;
+      };
 
 
 
@@ -91,51 +68,21 @@ constructor(props) {
 
   render() {
     return (
-    <div>
-      <h3>Create New Session Log</h3>
-      <form onSubmit={this.onSubmit}>
-        <div className="form-group"> 
-          <label>Username: </label>
-          <select ref="userInput"
-              required
-              className="form-control"
-              value={this.state.username}
-              onChange={this.onChangeUsername}>
-              {
-                this.state.users.map(function(user) {
-                  return <option 
-                    key={user}
-                    value={user}>{user}
-                    </option>;
-                })
-              }
-          </select>
-        </div>
-        <div className="form-group"> 
-          <label>Description: </label>
-          <input  type="text"
-              required
-              className="form-control"
-              value={this.state.description}
-              onChange={this.onChangeDescription}
-              />
-        </div>
-        <div className="form-group">
-          <label>Duration (in minutes): </label>
-          <input 
-              type="text" 
-              className="form-control"
-              value={this.state.duration}
-              onChange={this.onChangeDuration}
-              />
-        </div>
-        
-
-        <div className="form-group">
-          <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
-        </div>
-      </form>
-    </div>
-    )
+          <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
+          <Form.Control
+          type="text"
+          placeholder="Start Session"
+          value={"knee"}
+          onChange={e => this.handleChange(e.target.value)}
+        />
+        <button onClick={this.onSubmit()}>Start Sesstion</button>
+         <div className="flex-grow-1 my-2" style={{ overflowY: "auto" }}>
+              Songs
+          </div>
+        </Container>
+        )
   }
 }
+
+
+

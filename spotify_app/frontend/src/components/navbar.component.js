@@ -6,14 +6,14 @@ export default class Navbar extends Component {
   render() {
     return (
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-        <Link to="/" className="navbar-brand">Username : {this.props.name}</Link>
+        <div className="navbar-brand">Username : {this.props.name}</div>
         <div className="collpase navbar-collapse">
         <ul className="navbar-nav mr-auto">
           <li className="navbar-item">
-          <Link to="/" className="nav-link">Songs</Link>
+          <Link to="/create" className="nav-link">Songs</Link>
           </li>
           <li className="navbar-item">
-          <Link to="/create" className="nav-link">Create Song Log</Link>
+          <Link to="/songs" className="nav-link">Create Song Log</Link>
           </li>
           <li className="navbar-item">
           <Link to="/user" className="nav-link">Create User</Link>
